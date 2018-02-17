@@ -1,6 +1,6 @@
 package io.github.ambauma.audioplayer;
 
-public class Main {
+public final class Main {
 
   /**
    * Main entrypoint of the application.
