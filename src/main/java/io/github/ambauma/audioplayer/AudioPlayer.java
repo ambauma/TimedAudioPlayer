@@ -1,5 +1,8 @@
 package io.github.ambauma.audioplayer;
 
+import static io.github.ambauma.audioplayer.Constants.DATA_PATH;
+import static io.github.ambauma.audioplayer.Constants.DATA_PATH_STRING;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,8 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 
-import static io.github.ambauma.audioplayer.Constants.DATA_FILE_PATH;
-import static io.github.ambauma.audioplayer.Constants.DATA_PATH;
 import javazoom.jlgui.basicplayer.BasicController;
 import javazoom.jlgui.basicplayer.BasicPlayer;
 import javazoom.jlgui.basicplayer.BasicPlayerEvent;
@@ -42,7 +43,7 @@ public class AudioPlayer implements BasicPlayerListener {
     Collections.sort(files);
     File file = files.get(currentFile);
 
-    LOG.info("Data File Path: " + DATA_FILE_PATH);
+    LOG.info("Data File Path: " + DATA_PATH_STRING);
     LOG.info("Data file exists: " + Files.exists(DATA_PATH));
     if (Files.exists(DATA_PATH)) {
       loadFileAndStartPositionFromDisk(files);

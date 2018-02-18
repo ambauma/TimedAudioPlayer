@@ -1,12 +1,13 @@
 package io.github.ambauma.audioplayer;
 
+import static io.github.ambauma.audioplayer.Constants.DATA_PATH;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.TimerTask;
 
-import static io.github.ambauma.audioplayer.Constants.DATA_PATH;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,7 +26,7 @@ public class SaveAndCloseTask extends TimerTask {
     File file = audioPlayer.getFiles().get(audioPlayer.getCurrentFile());
     long currentPosition = audioPlayer.getCurrentPosition();
     String content = file.getAbsolutePath() + "|" + currentPosition;
-    LOG.info(String.format("Writing \"%s\" to \"\"", content, DATA_PATH));
+    LOG.info(String.format("Writing \"%s\" to \"%s\"", content, DATA_PATH));
     try {
       Files.write(DATA_PATH, content.getBytes(),
               StandardOpenOption.CREATE,
