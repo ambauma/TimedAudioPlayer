@@ -1,11 +1,7 @@
 package io.github.ambauma.audioplayer;
 
-import static io.github.ambauma.audioplayer.Constants.DATA_PATH;
-import static io.github.ambauma.audioplayer.Constants.DATA_PATH_STRING;
-
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +24,7 @@ public class AudioPlayer implements BasicPlayerListener {
   private int currentFile = 0;
   private long currentPosition = 0;
   private boolean shouldStop = false;
+  private SaveManager saveManager;
 
 
 
@@ -41,15 +38,13 @@ public class AudioPlayer implements BasicPlayerListener {
   public AudioPlayer(String audioFolder, int duration) throws BasicPlayerException, IOException {
     files = Arrays.asList(new File(audioFolder).listFiles());
     Collections.sort(files);
-    File file = files.get(currentFile);
 
-    LOG.info("Data File Path: " + DATA_PATH_STRING);
-    LOG.info("Data file exists: " + Files.exists(DATA_PATH));
-    if (Files.exists(DATA_PATH)) {
-      loadFileAndStartPositionFromDisk(files);
-    }
+    saveManager = new SaveManager();
+    this.currentPosition = saveManager.getPosition();
+    this.currentFile = findFileIndex(files, saveManager.getAbsoluteFilePath());
+    LOG.info("Set start position to: " + currentPosition);
 
-    new Timer().schedule(new SaveAndCloseTask(this), duration);
+    new Timer().schedule(new SaveAndCloseTask(this, saveManager), duration);
 
     basicPlayer.open(files.get(this.currentFile));
     basicPlayer.addBasicPlayerListener(this);
@@ -57,24 +52,15 @@ public class AudioPlayer implements BasicPlayerListener {
     basicPlayer.play();
   }
 
-  void loadFileAndStartPositionFromDisk(List<File> files) throws IOException {
-    String contents = new String(Files.readAllBytes(DATA_PATH));
-    LOG.info(String.format("Read \"%s\" from \"%s\"", contents, DATA_PATH));
-    String absoluteFilePath = findFilePath(contents);
+  int findFileIndex(List<File> files, String filePathToFind) throws IOException {
     for (int i = 0; i < files.size(); i++) {
       File afile = files.get(i);
-      if (afile.getAbsolutePath().equals(absoluteFilePath)) {
-        currentFile = i;
-        LOG.info("Set file to play to: " + afile.getAbsoluteFile());
+      if (afile.getAbsolutePath().equals(filePathToFind)) {
+        LOG.info("Set file to play to: " + afile.getAbsolutePath());
+        return i;
       }
     }
-    currentPosition = Long.parseLong(
-            contents.substring(contents.indexOf("|") + 1, contents.length()));
-    LOG.info("Set start position to: " + currentPosition);
-  }
-
-  String findFilePath(String contents) {
-    return contents.substring(0, contents.indexOf("|"));
+    return 0;
   }
 
   @Override

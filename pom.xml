@@ -88,12 +88,17 @@
                 </dependencies>
                 <executions>
                     <execution>
-                        <phase>process-sources</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -103,11 +108,6 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20.1</version>
             </plugin>
             <plugin>
                 <groupId>org.pitest</groupId>
@@ -122,8 +122,6 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <targetClasses>io.github.ambauma.audioplayer.*</targetClasses>
-                    <targetTests>io.github.ambauma.audioplayer.*</targetTests>
                     <timestampedReports>false</timestampedReports>
                     <avoidCallsTo>
                         <avoidCallsTo>org.apache.logging.log4j</avoidCallsTo>
@@ -169,7 +167,7 @@
                     </reportSet>
                 </reportSets>
                 <configuration>
-                    <mutationThreshold>4</mutationThreshold>
+                    <mutationThreshold>100</mutationThreshold>
                 </configuration>
             </plugin>
             <plugin>
