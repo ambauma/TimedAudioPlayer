@@ -57,12 +57,11 @@ public class AudioPlayerTest {
     PowerMock.expectNew(SaveManager.class).andReturn(mockSaveManager);
 
     EasyMock.expect(mockFile1.listFiles()).andReturn(new File[]{mockFile2, mockFile3});
-    EasyMock.expect(mockSaveManager.getAbsoluteFilePath()).andReturn("/some/folder/2_file.mp3");
-    EasyMock.expect(mockSaveManager.getPosition()).andReturn(6000L);
+    SavePoint savePoint = new SavePoint("/some/folder/2_file.mp3", 6000L);
+    EasyMock.expect(mockSaveManager.load()).andReturn(savePoint);
     EasyMock.expect(mockFile2.compareTo(EasyMock.isA(File.class))).andReturn(-1).anyTimes();
     EasyMock.expect(mockFile3.compareTo(EasyMock.isA(File.class))).andReturn(1).anyTimes();
     EasyMock.expect(mockFile2.getAbsolutePath()).andReturn("/some/folder/2_file.mp3").times(2);
-    //EasyMock.expect(mockFile3.getAbsolutePath()).andReturn("/some/folder/3_file.mp3");
 
     mockBasicPlayer.open(mockFile2);
     EasyMock.expectLastCall();

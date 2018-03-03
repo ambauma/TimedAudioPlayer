@@ -22,8 +22,7 @@ public class SaveAndCloseTask extends TimerTask {
     LOG.traceEntry();
     File file = audioPlayer.getFiles().get(audioPlayer.getCurrentFile());
     long currentPosition = audioPlayer.getCurrentPosition();
-    saveManager.setAbsoluteFilePath(file.getAbsolutePath());
-    saveManager.setPosition(currentPosition);
+    saveManager.save(new SavePoint(file.getAbsolutePath(), currentPosition));
     audioPlayer.setShouldStop(true);
     LOG.info("Stop requested.");
     LOG.traceExit();

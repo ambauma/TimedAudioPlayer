@@ -45,9 +45,8 @@ public class SaveAndCloseTaskTest {
     EasyMock.expect(mockAudioPlayer.getCurrentFile()).andReturn(0);
     EasyMock.expect(mockFile.getAbsolutePath()).andReturn("/some/file/somewhere.mp3");
     EasyMock.expect(mockAudioPlayer.getCurrentPosition()).andReturn(0L);
-    mockSaveManager.setPosition(0L);
+    mockSaveManager.save(EasyMock.eq(new SavePoint("/some/file/somewhere.mp3", 0L)));
     EasyMock.expectLastCall();
-    mockSaveManager.setAbsoluteFilePath("/some/file/somewhere.mp3");
     mockAudioPlayer.setShouldStop(true);
     EasyMock.expectLastCall();
     PowerMock.replay(mocks);
