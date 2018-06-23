@@ -15,3 +15,8 @@ Ubuntu:
 ```java
 java -jar audioplayer-0.2.0-SNAPSHOT-jar-with-dependencies.jar "/home/ambauma/Music/Audiobooks/AudiobookSeries" 60000
 ```
+
+## Building
+```shell
+mvn clean checkstyle:checkstyle checkstyle:check install site
+```

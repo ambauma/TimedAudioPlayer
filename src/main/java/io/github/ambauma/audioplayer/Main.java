@@ -8,7 +8,10 @@ public final class Main {
    * @throws Exception  possible exception
    */
   public static void main(String[] args) throws Exception {
+    EventRouter eventRouter = new EventRouter();
+
     final String folderName = args[0];
+
     final int duration = Integer.parseInt(args[1]);
     new AudioPlayer(folderName, duration);
   }
