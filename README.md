@@ -13,10 +13,10 @@ Ubuntu:
 
 ## Usage
 ```java
-java -jar audioplayer-0.2.0-SNAPSHOT-jar-with-dependencies.jar "/home/ambauma/Music/Audiobooks/AudiobookSeries" 60000
+java -jar audioplayer-1.0.0-SNAPSHOT-jar-with-dependencies.jar "/home/ambauma/Music/Audiobooks/AudiobookSeries" 60000
 ```
 
 ## Building
 ```shell
-mvn clean checkstyle:checkstyle checkstyle:check install site
+mvn clean checkstyle:checkstyle checkstyle:check package site
 ```

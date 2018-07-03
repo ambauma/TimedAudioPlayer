@@ -1,5 +1,7 @@
 package io.github.ambauma.audioplayer;
 
+import io.github.ambauma.events.Event;
+
 public class FileLoadEvent implements Event {
     private String audioFolder;
     private int duration;

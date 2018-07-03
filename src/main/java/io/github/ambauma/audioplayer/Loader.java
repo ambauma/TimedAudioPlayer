@@ -1,5 +1,6 @@
 package io.github.ambauma.audioplayer;
 
+import io.github.ambauma.events.EventRouter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

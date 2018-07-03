@@ -1,5 +1,7 @@
 package io.github.ambauma.audioplayer;
 
+import io.github.ambauma.events.EventRouter;
+
 public final class Main {
 
   /**
