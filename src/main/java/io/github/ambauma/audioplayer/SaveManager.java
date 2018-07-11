@@ -1,18 +1,20 @@
 package io.github.ambauma.audioplayer;
 
-import static io.github.ambauma.audioplayer.Constants.DATA_PATH;
-import static io.github.ambauma.audioplayer.Constants.DATA_PATH_STRING;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
+import static io.github.ambauma.audioplayer.Constants.DATA_PATH;
+import static io.github.ambauma.audioplayer.Constants.DATA_PATH_STRING;
+
+@Component
 public class SaveManager {
 
-  private static final Logger LOG = LogManager.getLogger(SaveManager.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SaveManager.class);
 
   public SaveManager() {
     LOG.info("Data File Path: " + DATA_PATH_STRING);

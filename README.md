@@ -20,3 +20,14 @@ java -jar audioplayer-1.0.0-SNAPSHOT-jar-with-dependencies.jar "/home/ambauma/Mu
 ```shell
 mvn clean checkstyle:checkstyle checkstyle:check package site
 ```
+
+## Application Flow
+
+    Application --> Initializer --> SortFilesEvent
+
+    SortFilesEvent-+-->SavePointHandler-------->ReadyToPlayEvent
+                   |
+                   +-->SortFilesEventHandler
+    ReadyToPlayEvent--+-->CloseWhenTimeHandler
+                      |
+                      +-->StartPlayingHandler

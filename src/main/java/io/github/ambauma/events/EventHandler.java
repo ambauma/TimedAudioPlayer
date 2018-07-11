@@ -2,6 +2,6 @@ package io.github.ambauma.events;
 
 public interface EventHandler {
 
-  void handle(Event event);
+  <T extends Object> void handle(T event);
 
 }

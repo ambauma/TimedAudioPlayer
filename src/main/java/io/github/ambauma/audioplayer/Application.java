@@ -1,29 +1,22 @@
 package io.github.ambauma.audioplayer;
 
 import io.github.ambauma.events.EventRouter;
-import org.springframework.boot.CommandLineRunner;
+import javazoom.jlgui.basicplayer.BasicPlayer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
-@SpringBootApplication
-public class Application implements CommandLineRunner {
+@SpringBootApplication(scanBasePackages = "io.github.ambauma")
+public class Application {
 
-    public void run(String... args) {
+  public static void main(String[] args) throws Exception {
+    SpringApplication.run(Application.class, args);
+  }
 
-    }
+  @Bean
+  public BasicPlayer basicPlayer() {
+    return new BasicPlayer();
+  }
 
-    public static void main(String[] args) throws Exception {
-        ConfigurableApplicationContext ctx = SpringApplication.run(Application.class, args);
-
-    }
-
-    @Bean
-    public EventRouter eventRouter() {
-        EventRouter eventRouter = new EventRouter();
-        eventRouter.registerHandler(new FileLoadEvent(), new FileLoadEventHandler());
-        return eventRouter;
-    }
-
+  @Bean EventRouter eventRouter() { return new EventRouter(); }
 }

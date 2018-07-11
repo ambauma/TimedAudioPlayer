@@ -1,39 +1,35 @@
 package io.github.ambauma.events;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.stereotype.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Component
 public class EventRouter {
 
-  private static final String REGISTER_MESSAGE = "Registered event %s with handler %s";
-  private static final String FIRE_MESSAGE = "Fired event %s and with handler %s";
-  private static final Logger LOG = LogManager.getLogger(EventRouter.class);
-  private Map<String, Set<EventHandler>> eventHandlersByEvent;
+  private static final String REGISTER_MESSAGE = "Registered handler %s";
+  private static final String FIRE_MESSAGE = "Handler %s has returned from fired event %s";
+  private static final Logger LOG = LoggerFactory.getLogger(EventRouter.class);
+  private Set<EventHandler> eventHandlers = new HashSet<>();
+  private ExecutorService executorService = Executors.newCachedThreadPool();
 
   public EventRouter() {
-    eventHandlersByEvent = new HashMap<>();
+
   }
 
   /**
-   * This method stores relationships between events and event handlers.
-   * @param event An event
-   * @param eventHandler  The handler to fire if the event occurs.
+   * This method stores event handlers.
+   *
+   * @param handlers One or more event handlers to be notified when events occur.
    */
-  public void registerHandler(Event event, EventHandler eventHandler) {
-    Set<EventHandler> eventHandlersForEvent = eventHandlersByEvent.get(event.getClass().getName());
-    if (eventHandlersForEvent == null) {
-      eventHandlersForEvent = new HashSet<>();
-      eventHandlersByEvent.put(event.getClass().getName(), eventHandlersForEvent);
+  public void registerHandlers(EventHandler... handlers) {
+    for (EventHandler eventHandler : handlers) {
+      eventHandlers.add(eventHandler);
+      LOG.info(String.format(REGISTER_MESSAGE, eventHandler));
     }
-    eventHandlersForEvent.add(eventHandler);
-    LOG.info(String.format(REGISTER_MESSAGE, event.getClass().getName(), eventHandler));
   }
 
   /**
@@ -42,13 +38,11 @@ public class EventRouter {
    *
    * @param event The event used to search for event handlers.
    */
-  public void fire(Event event) {
-    Set<EventHandler> eventHandlers = eventHandlersByEvent.get(event.getClass().getName());
-    eventHandlers = eventHandlers == null ? new HashSet<>() : eventHandlers;
-    for (EventHandler eventHandler : eventHandlers) {
+  public <T extends Object> void fire(T event) {
+    eventHandlers.parallelStream().forEach(eventHandler -> {
       eventHandler.handle(event);
-      LOG.info(String.format(FIRE_MESSAGE, event.getClass().getName(), eventHandler));
-    }
+      LOG.info(String.format(FIRE_MESSAGE, eventHandler, event));
+    });
   }
 
 }
