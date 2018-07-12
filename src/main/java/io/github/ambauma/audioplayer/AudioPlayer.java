@@ -45,7 +45,7 @@ public class AudioPlayer implements BasicPlayerListener {
     this.currentFile = findFileIndex(files, savePoint.getAbsoluteFilePath());
     LOG.info("Set start position to: " + currentPosition);
 
-    new Timer().schedule(new SaveAndCloseTask(this, saveManager), duration);
+    new Timer().schedule(new SaveAndCloseTask(), duration);
 
     basicPlayer.open(files.get(this.currentFile));
     basicPlayer.addBasicPlayerListener(this);

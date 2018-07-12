@@ -4,15 +4,15 @@ import java.io.File;
 
 public class ReadyToPlayEvent {
   private File currentFile;
-  private Long duration;
+  private Long position;
 
   public ReadyToPlayEvent() {
 
   }
 
-  public ReadyToPlayEvent(File currentFile, Long duration) {
+  public ReadyToPlayEvent(File currentFile, Long position) {
     this.currentFile = currentFile;
-    this.duration = duration;
+    this.position = position;
   }
 
   public File getCurrentFile() {
@@ -23,11 +23,11 @@ public class ReadyToPlayEvent {
     this.currentFile = currentFile;
   }
 
-  public Long getDuration() {
-    return duration;
+  public Long getPosition() {
+    return position;
   }
 
-  public void setDuration(Long duration) {
-    this.duration = duration;
+  public void setPosition(Long position) {
+    this.position = position;
   }
 }

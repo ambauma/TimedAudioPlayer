@@ -6,6 +6,6 @@ public class ApplicationTest {
 
   @Test
   public void testRun() throws Exception {
-    Application.main (new String[] {"src/test/resources/alphabet/", "10000"});
+    Application.main (new String[] {"src/test/resources/alphabet/", "100000"});
   }
 }

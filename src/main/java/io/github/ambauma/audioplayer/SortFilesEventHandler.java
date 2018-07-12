@@ -20,6 +20,7 @@ public class SortFilesEventHandler implements EventHandler {
 
   @Autowired
   private EventRouter eventRouter;
+  private List<File> files;
 
   @PostConstruct
   public void init() {
@@ -34,11 +35,21 @@ public class SortFilesEventHandler implements EventHandler {
       LOG.info(String.format("%s handling event %s", this, sortFilesEvent));
 
       //Sort files
-      List<File> files = Arrays.asList(new File(sortFilesEvent.getAudioFolder()).listFiles());
+      files = Arrays.asList(new File(sortFilesEvent.getAudioFolder()).listFiles());
       Collections.sort(files);
       LOG.info("eventRouter:  " + getEventRouter());
       LOG.info("SortFileEventDuration: " + sortFilesEvent.getDuration());
       getEventRouter().fire(new FilesSortedEvent(files, sortFilesEvent.getDuration()));
+    } else if (NextFileEvent.class.isInstance(event)) {
+      NextFileEvent nextFileEvent = (NextFileEvent) event;
+      int lastFile = files.lastIndexOf(nextFileEvent.getCurrentFile());
+      if(lastFile > files.size()) {
+        lastFile = -1;
+      }
+      ReadyToPlayEvent readyToPlayEvent = new ReadyToPlayEvent();
+      readyToPlayEvent.setPosition(0L);
+      readyToPlayEvent.setCurrentFile(files.get(lastFile++));
+      getEventRouter().fire(readyToPlayEvent);
     }
   }
 

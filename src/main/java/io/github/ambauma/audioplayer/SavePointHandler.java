@@ -47,7 +47,7 @@ public class SavePointHandler implements EventHandler {
 
     ReadyToPlayEvent readyToPlayEvent = new ReadyToPlayEvent();
     readyToPlayEvent.setCurrentFile(currentFile);
-    readyToPlayEvent.setDuration(savePoint.getPosition());
+    readyToPlayEvent.setPosition(savePoint.getPosition());
     getEventRouter().fire(readyToPlayEvent);
   }
 

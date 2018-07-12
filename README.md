@@ -12,7 +12,7 @@ Ubuntu:
  * icedtea-8-plugin
 
 ## Usage
-```java
+```shell
 java -jar audioplayer-1.0.0-SNAPSHOT-jar-with-dependencies.jar "/home/ambauma/Music/Audiobooks/AudiobookSeries" 60000
 ```
 
