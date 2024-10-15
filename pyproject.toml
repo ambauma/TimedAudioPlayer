@@ -11,8 +11,11 @@ readme = "README.md"
 license = {file = "LICENSE"}
 [project.optional-dependencies]
 test = [
-  "pytest",
+  "pytest-cov",
   "black",
+  "pydocstyle",
+  "pylint",
+  "mockito",
 ]
 
 [project.scripts]
