@@ -233,6 +233,8 @@ def test_storage_position(tmpdir: LocalPath, audio_directory):
     s = sut.Storage(location=str(tmpdir))
     s.set_position(current_file, 0.51)
     assert s.get_position(current_file) == 0.51
+    s.set_position(current_file, 0.52)
+    assert s.get_position(current_file) == 0.52
 
 
 def test_storage_playback_complete(tmpdir: LocalPath, audio_directory):

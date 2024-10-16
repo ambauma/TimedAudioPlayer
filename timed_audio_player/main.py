@@ -15,7 +15,9 @@ class Storage:
 
     def __init__(self, location=None):
         """Initialize the class."""
-        if not location:
+        if not location:  # pragma: no cover
+            # This is the default path when not testing.  But I do not want
+            # to blow away actual configurations on this machine while testing.
             location = os.path.join(
                 os.path.expanduser("~"), ".local/share/timed-audio-player"
             )
@@ -57,11 +59,9 @@ class Storage:
         cur.execute(
             "SELECT position from playdata where current_file = ?;", [current_file]
         )
-        try:
-            value = cur.fetchone()[0]
-            return value
-        except TypeError:
-            return 0.0
+        value = cur.fetchone()[0]
+        return value
+
 
     def playback_complete(self, directory):
         """Clear out storage because all files have been played."""
