@@ -29,4 +29,5 @@ jobs:
         ./build.sh setup
     - name: Run Tests
       run: |
+        source venv/bin/activate
         ./build.sh test
