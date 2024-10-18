@@ -6,7 +6,7 @@ setup() {
     python3 -m venv venv
     source venv/bin/activate
     pip install --upgrade pip wheel setuptools
-    pip install --editable .[TEST]
+    pip install --editable .[test]
 }
 
 test() {
