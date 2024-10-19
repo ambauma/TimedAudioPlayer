@@ -2,7 +2,13 @@
 An audio player that will play audio files in a directory for a specified amount of time.
 
 ## Dependencies
-Python 3.8+
+Python 3.9+
+
+## Installation
+
+```shell
+pip install timed-audio-player
+```
 
 ## Usage
 
