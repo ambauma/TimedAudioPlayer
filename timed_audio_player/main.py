@@ -59,8 +59,8 @@ class Storage:
         cur.execute(
             "SELECT position from playdata where current_file = ?;", [current_file]
         )
-        value = cur.fetchone()[0]
-        return value
+        value = cur.fetchone()
+        return value[0] if value else 0
 
 
     def playback_complete(self, directory):
