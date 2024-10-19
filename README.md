@@ -1,8 +1,11 @@
 # TimedAudioPlayer
-An audio player that will play audio files in a directory for a specified amount of time.
+
+An audio player that will play audio files in a directory for a specified amount of time.  Depends on libraries in VLC to do the actual audio.
 
 ## Dependencies
-Python 3.9+
+
+* Python 3.9+
+* VLC
 
 ## Installation
 
